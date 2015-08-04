@@ -1,0 +1,44 @@
+[test_case]
+test = perfrunner.tests.kv.PersistLatencyTest
+title = Observe (ms), mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S), 2%% CMR, lwat 60, db_comp 50
+summary = Observe KV test, mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S) 2%% CMR, lwat 60, db_comp 50
+larger_is_better = false
+
+[cluster]
+mem_quota = 40960
+initial_nodes = 4
+num_buckets = 1
+dgm_ratio = 5
+
+[bucket]
+eviction_policy = fullEviction
+replica_number = 1
+
+[watermarks]
+mem_low_wat = 60
+
+[compaction]
+db_percentage = 50
+
+[load]
+items = 100000000
+size = 1024
+workers = 20
+
+[hot_load]
+items = 100000000
+workers = 40
+working_set = 98
+
+[access]
+creates = 0
+reads = 50
+updates = 50
+deletes = 0
+throughput = 15000
+workers = 24
+items = 100000000
+working_set = 98
+working_set_access = 98
+time = 3600
+async = 1
