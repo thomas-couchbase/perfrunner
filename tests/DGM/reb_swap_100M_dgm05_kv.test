@@ -1,11 +1,11 @@
 [test_case]
 test = perfrunner.tests.rebalance.RebalanceKVTest
-title = Rebalance-swap (min), 3 -> 3 / 1, 1 bucket x 100M x 2KB, DGM 05pct, 2K ops/sec
-summary = Mixed swap rebalance test, 3 -> 3 nodes, 1 bucket x 100M x 2KB, DGM 05pct, 2K ops/sec
+title = Rebalance-swap (min), 3->3 / 1, 1 bkt x 100M x 1KB, DGM 05pct, 15K ops/sec
+summary = Mixed swap rebalance test, 3->3 nodes, 1 bkt x 100M x 1KB, DGM 05pct, 15K ops/sec
 larger_is_better = false
 
 [cluster]
-mem_quota = 2550
+mem_quota = 12000
 initial_nodes = 3
 num_buckets = 1
 
@@ -14,26 +14,24 @@ db_percentage = 100
 
 [load]
 items = 100000000
-size = 2048
+size = 1024
 workers = 20
 
 [hot_load]
 items = 100000000
-size = 2048
 workers = 20
 working_set = 10
 
 [access]
-creates = 1
-reads = 80
-updates = 18
-deletes = 1
-throughput = 2000
+creates = 0
+reads = 50
+updates = 50
+deletes = 0
+throughput = 15000
 items = 100000000
-size = 2048
 workers = 24
-working_set = 10
-working_set_access = 80
+working_set = 98
+working_set_access = 98
 
 [rebalance]
 nodes_after = 3
