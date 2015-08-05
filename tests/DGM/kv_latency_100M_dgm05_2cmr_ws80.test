@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.kv.ReadLatencyTest
-title = latency (ms), mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S),  2%% CMR
-summary = Mixed KV test, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S),  2%% CMR
+title = latency (ms), mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S), ws 80%% 2%% CMR
+summary = Mixed KV test, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S), ws 80%% 2%% CMR
 larger_is_better = false
 
 [cluster]
@@ -34,7 +34,7 @@ deletes = 0
 throughput = 15000
 workers = 24
 items = 100000000
-working_set = 98
-working_set_access = 98
+working_set = 80
+working_set_access = 80
 time = 3600
 async = 1
