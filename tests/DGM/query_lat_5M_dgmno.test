@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.query.QueryLatencyTest
-title = 1 bkt x 100M x 1KB, DGM 5pct, 4x1 views, 1875 mutations/sec/node, 400 queries/sec
-summary = Read-heavy query test (50/50), 4 nodes, 1 bkt x 100M x 1KB, DGM 5pct, 4 x 1 views, 1875 mutations/sec/node, 400 qps
+title = 1 bucket x 100M x 1KB, DGM 05, 4 x 1 views, 1375 mutations/sec/node, 400 queries/sec
+summary = Read-heavy query test (50/50), 4 nodes, 1 bucket x 100M x 1KB, DGM 05, 4 x 1 views, 1375 mutations/sec/node, 400 qps
 larger_is_better = false
 
 [cluster]
@@ -17,14 +17,14 @@ replica_number = 1
 db_percentage = 80
 
 [load]
-items = 100000000
+items = 5000000
 size = 1024
-workers = 20
+workers = 30
 
 [hot_load]
-items = 100000000
-workers = 20
-working_set = 98
+items = 5000000
+workers = 30
+working_set = 5
 
 [index]
 views = [1, 1, 1, 1]
@@ -36,9 +36,9 @@ updates = 50
 deletes = 0
 throughput = 15000
 query_throughput = 400
-items = 100000000
+items = 5000000
 working_set = 98
 working_set_access = 98
-workers = 24
-query_workers = 16
+workers = 32
+query_workers = 24
 time = 3600

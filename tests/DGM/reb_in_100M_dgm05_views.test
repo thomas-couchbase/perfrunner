@@ -5,7 +5,7 @@ summary = Mixed KV + queries rebalance test, 3->4 nodes, 1 bkt x 100M x 1KB, 1 x
 larger_is_better = false
 
 [cluster]
-mem_quota = 10240 
+mem_quota = 15000 
 initial_nodes = 3
 num_buckets = 1
 

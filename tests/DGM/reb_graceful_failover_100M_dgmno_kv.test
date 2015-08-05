@@ -5,7 +5,7 @@ summary = Mixed rebalance after graceful failover, 3->4 nodes, 1 bkt x 100M x 1K
 larger_is_better = false
 
 [cluster]
-mem_quota = 40960
+mem_quota = 12000
 initial_nodes = 4
 num_buckets = 1
 

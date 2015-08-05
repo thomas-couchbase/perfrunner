@@ -5,7 +5,7 @@ summary = Mixed rebalance-out test, 4->3, 1 bkt x 5M x 1KB, DGM no, 15K ops/sec
 larger_is_better = false
 
 [cluster]
-mem_quota = 10240
+mem_quota = 12000
 initial_nodes = 4
 num_buckets = 1
 
@@ -13,12 +13,12 @@ num_buckets = 1
 db_percentage = 80
 
 [load]
-items = 100000000
+items = 5000000
 size = 1024
 workers = 20
 
 [hot_load]
-items = 100000000
+items = 5000000
 workers = 20
 working_set = 98
 
@@ -28,7 +28,7 @@ reads = 50
 updates = 50
 deletes = 0
 throughput = 15000
-items = 100000000
+items = 5000000
 workers = 24
 working_set = 98
 working_set_access = 98

@@ -5,10 +5,9 @@ summary = Mixed rebalance after failover, 3 -> 4 nodes, 1 bkt, 100M, 1KB, 15Kops
 larger_is_better = false
 
 [cluster]
-mem_quota = 40960
+mem_quota = 12000
 initial_nodes = 3
 num_buckets = 1
-dgm_ratio = 5
 
 [bucket]
 eviction_policy = fullEviction

@@ -5,7 +5,7 @@ summary = Mixed rebalance test, 3->4 nodes, 1 bkt x 100M x 1KB, DGM 05pct, 15K o
 larger_is_better = false
 
 [cluster]
-mem_quota = 10240
+mem_quota = 12000
 initial_nodes = 3
 num_buckets = 1
 
