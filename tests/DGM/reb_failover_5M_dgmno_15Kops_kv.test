@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.rebalance.RebalanceKVTest
-title = Rebalance after failover (min), 3->4, 1 bkt x 100M,1KB, 15Kops (50/50 G/S) DGM 05pct
-summary = Mixed rebalance after failover, 3->4 nodes, 1 bkt, 100M, 1KB, 15Kops (50/50 G/S) DGM 05pct
+title = Rebalance after failover (min), 3 -> 4, 1 bkt x 5M, 1KB, 15Kops (50/50 G/S) DGM 05pct
+summary = Mixed rebalance after failover, 3 -> 4 nodes, 1 bkt, 5M, 1KB, 15Kops (50/50 G/S) DGM 05pct
 larger_is_better = false
 
 [cluster]
@@ -17,7 +17,7 @@ replica_number = 1
 db_percentage = 80
 
 [load]
-items = 100000000
+items = 5000000
 size = 1024
 workers = 20
 
@@ -27,7 +27,7 @@ reads = 50
 updates = 50
 deletes = 0
 throughput = 15000
-items = 100000000
+items = 5000000
 workers = 24
 working_set = 98
 working_set_access = 98

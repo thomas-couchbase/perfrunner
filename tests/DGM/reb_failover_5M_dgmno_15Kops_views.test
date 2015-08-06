@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.rebalance.RebalanceWithQueriesTest
-title = Rebalance after failover (min), 3->4, 1 bkt x 100M x 1KB, 1 x 1 views, DGM05, 15K ops/sec, 400 queries/sec
-summary = Mixed rebalance after failover, 3->4 nodes, 1 bucket x 100M x 1KB, DGM05, 1 x 1 views, 15K ops/sec, 400 qps
+title = Rebalance after failover (min), 3->4, 1 bkt x 5M x 1KB, 1 x 1 views, DGM no, 15K ops/sec, 400 queries/sec
+summary = Mixed rebalance after failover, 3->4 nodes, 1 bkt x 5M x 1KB, DGM no, 1 x 1 views, 15K ops/sec, 400 qps
 larger_is_better = false
 
 [cluster]
@@ -17,12 +17,12 @@ eviction_policy = fullEviction
 db_percentage = 80
 
 [load]
-items = 100000000
+items = 5000000
 size = 1024
 workers = 10
 
 [hot_load]
-items = 100000000
+items = 5000000
 workers = 10
 working_set = 98
 
@@ -36,7 +36,7 @@ updates = 50
 deletes = 0
 throughput = 15000
 query_throughput = 400
-items = 100000000
+items = 5000000
 workers = 24
 query_workers = 24
 working_set = 98
