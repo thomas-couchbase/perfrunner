@@ -12,6 +12,10 @@ num_buckets = 1
 [compaction]
 db_percentage = 80
 
+[bucket]
+eviction_policy = fullEviction
+replica_number = 1
+
 [load]
 items = 100000000
 size = 1024

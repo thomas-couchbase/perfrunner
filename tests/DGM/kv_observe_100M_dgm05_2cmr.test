@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.kv.PersistLatencyTest
-title = Observe (ms), mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S), 2%% CMR
-summary = Observe KV test, mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S) 2%% CMR
+title = PersistTo=1(ms), mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S), 2%% CMR
+summary = PersistTo=1(ms), mixed, 1 bkt x 100M x 1KB, DGM05, 15Kops (50/50 G/S) 2%% CMR
 larger_is_better = false
 
 [cluster]

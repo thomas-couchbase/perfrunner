@@ -15,6 +15,7 @@ view_percentage = 100
 
 [bucket]
 replica_number = 1
+eviction_policy = fullEviction
 
 [load]
 items = 5000000

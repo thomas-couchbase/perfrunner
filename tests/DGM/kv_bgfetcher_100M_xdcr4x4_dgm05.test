@@ -5,12 +5,16 @@ summary = Read-heavy Symmetric XDCR  test (80/20), XDCR 4 x 4, 1 bucket x 200M x
 larger_is_better = true
 
 [cluster]
-mem_quota = 2550
+mem_quota = 12000
 initial_nodes = 4
 num_buckets = 1
 
 [compaction]
 db_percentage = 10
+
+[bucket]
+replica_number = 1
+eviction_policy = fullEviction
 
 [load]
 items = 100000000
