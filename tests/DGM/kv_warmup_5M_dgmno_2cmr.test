@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.kv.WarmupTest
-title = Observe (ms), 95%%percentile mixed, 1 bkt x 5M x 1KB, DGMno, 15Kops (50/50 G/S), 2%% CMR
-summary = Observe KV test, 95%%percentile, 1 bkt x 5M x 1KB, DGMno, 15Kops (50/50 G/S), 2%% CMR
+title = Warmup time (min), 1 bkt x 5M x 1KB, DGMno, 15Kops (50/50 G/S), 2%% CMR
+summary = Warmup time (min), 1 bkt x 5M x 1KB, DGMno, 15Kops (50/50 G/S), 2%% CMR
 larger_is_better = false
 
 [cluster]
