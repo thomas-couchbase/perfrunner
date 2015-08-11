@@ -30,9 +30,7 @@ def retry(method, *args, **kwargs):
             logger.warn(r.text)
             logger.warn('Retrying {}'.format(r.url))
             time.sleep(RETRY_DELAY)
-    logger.interrupt('Request {} failed after {} attempts'.format(
-        r.url, MAX_RETRY
-    ))
+            logger.interrupt('Request {} failed after {} attempts'.format(r.url, MAX_RETRY))
 
 
 class RestHelper(object):
@@ -59,6 +57,7 @@ class RestHelper(object):
 
     def set_data_path(self, host_port, data_path, index_path):
         logger.info('Configuring data paths: {}'.format(host_port))
+        logger.info('     data path {} index path {}'.format(data_path,index_path))
 
         api = 'http://{}/nodes/self/controller/settings'.format(host_port)
         data = {
