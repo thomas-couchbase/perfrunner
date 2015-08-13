@@ -1,0 +1,35 @@
+[test_case]
+test = perfrunner.tests.kv.PersistLatencyTest
+title = PersistTo=1 latency (ms), 1 bkts x 100M x 1KB, 1.85K mutations/sec/node
+summary = Write with persistence, 1 bkts x 100M x 1KB, 1.85K mutations/sec/node
+larger_is_better = false
+
+[cluster]
+mem_quota = 12000
+initial_nodes = 4
+num_buckets = 1
+
+[compaction]
+db_percentage = 60
+
+[load]
+items = 100000000
+size = 1024
+workers = 20
+
+[hot_load]
+items = 100000000
+workers = 20
+working_set = 20
+
+[access]
+creates = 0
+reads = 50
+updates = 50
+deletes = 0
+throughput = 7500
+items = 100000000
+workers = 24
+working_set = 20
+working_set_access = 98
+time = 3600
