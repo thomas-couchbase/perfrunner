@@ -1,0 +1,40 @@
+[test_case]
+test = perfrunner.tests.kv.WarmupTest
+title = Warmup time (min), 1 bkt x 100M x 1KB DGM 05pct 15Kops (50/50 G/S), 2%% CMR
+summary = Warmup time (min), 1 bkt x 100M x 1KB, DGM 05pct, 15Kops (50/50 G/S), 2%% CMR
+larger_is_better = false
+
+[cluster]
+mem_quota = 12000
+initial_nodes = 1
+num_buckets = 1
+
+[bucket]
+eviction_policy = fullEviction
+replica_number = 1
+
+[compaction]
+db_percentage = 80
+
+[load]
+items = 100000000
+size = 1024
+workers = 20
+
+[hot_load]
+items = 100000000
+workers = 20
+working_set = 5 
+
+[access]
+creates = 0
+reads = 50
+updates = 50
+deletes = 0
+throughput = 15000
+workers = 24
+items = 100000000
+working_set = 5 
+working_set_access = 98
+time = 3600
+async = 1
