@@ -24,7 +24,7 @@ workers = 20
 [hot_load]
 items = 100000000
 workers = 20
-working_set = 5 
+working_set = 10 
 
 [access]
 creates = 0
@@ -34,7 +34,7 @@ deletes = 0
 throughput = 15000
 workers = 24
 items = 100000000
-working_set = 5 
+working_set = 10 
 working_set_access = 98
 time = 3600
 async = 1

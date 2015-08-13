@@ -1,12 +1,12 @@
 [test_case]
 test = perfrunner.tests.kv.DrainTest
-title = Avg. write queue (10³ items), 1 bkt x 100M x 1KB, 3.75K updates/sec/node
-summary = Write-heavy KV test (50/50), 1 bkts x 100M x 1KB, 3.75K updates/sec/node
+title = Avg. write queue (10³ items), 1 node, 1 bkt x 100Mx1KB, 15Kops
+summary = Write-heavy KV test (50/50), 1 node, 1 bkt x 100Mx1KB, 15Kops
 larger_is_better = false
 
 [cluster]
 mem_quota = 12000
-initial_nodes = 4
+initial_nodes = 1
 num_buckets = 1
 
 [bucket]
@@ -31,7 +31,7 @@ creates = 0
 reads = 50
 updates = 50
 deletes = 0
-throughput = 7500
+throughput = 15000
 workers = 20
 items = 100000000
 working_set = 10

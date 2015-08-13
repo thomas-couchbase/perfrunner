@@ -1,12 +1,12 @@
 [test_case]
 test = perfrunner.tests.kv.PersistLatencyTest
-title = PersistTo=1 latency (ms), 1 bkts x 100M x 1KB, 1.85K mutations/sec/node
-summary = Write with persistence, 1 bkts x 100M x 1KB, 1.85K mutations/sec/node
+title = PersistTo=1 latency (ms), 1 node, 1 bkt x 100Mx1KB, 15Kops
+summary = Write with persistence, 1 node, 1 bkt x 100Mx1KB, 15Kops
 larger_is_better = false
 
 [cluster]
 mem_quota = 12000
-initial_nodes = 4
+initial_nodes = 1
 num_buckets = 1
 
 [compaction]
@@ -20,16 +20,16 @@ workers = 20
 [hot_load]
 items = 100000000
 workers = 20
-working_set = 20
+working_set = 10
 
 [access]
 creates = 0
 reads = 50
 updates = 50
 deletes = 0
-throughput = 7500
+throughput = 15000
 items = 100000000
 workers = 24
-working_set = 20
+working_set = 10
 working_set_access = 98
 time = 3600
