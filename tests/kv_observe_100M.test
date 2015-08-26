@@ -1,7 +1,7 @@
 [test_case]
-test = perfrunner.tests.kv.DrainTest
-title = Avg. write queue (10³ items), 1 bkt x 100M x 1KB, 3.75K updates/sec/node
-summary = Write-heavy KV test (50/50), 1 bkts x 100M x 1KB, 3.75K updates/sec/node
+test = perfrunner.tests.kv.PersistLatencyTest
+title = PersistTo=1 latency (ms), 1 bkts x 100M x 1KB, 1.85K mutations/sec/node
+summary = Write with persistence, 1 bkts x 100M x 1KB, 1.85K mutations/sec/node
 larger_is_better = false
 
 [cluster]
@@ -9,22 +9,18 @@ mem_quota = 12000
 initial_nodes = 4
 num_buckets = 1
 
-[bucket]
-eviction_policy = fullEviction
-replica_number = 1
-
 [compaction]
 db_percentage = 60
 
 [load]
 items = 100000000
 size = 1024
-workers = 10
+workers = 20
 
 [hot_load]
 items = 100000000
 workers = 20
-working_set = 10
+working_set = 20
 
 [access]
 creates = 0
@@ -32,9 +28,8 @@ reads = 50
 updates = 50
 deletes = 0
 throughput = 7500
-workers = 20
 items = 100000000
-working_set = 10
+workers = 24
+working_set = 20
 working_set_access = 98
 time = 3600
-async = 1

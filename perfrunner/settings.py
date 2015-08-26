@@ -346,7 +346,6 @@ class StatsSettings(object):
                          'password': options.get('showfast_password',
                                                  self.SHOWFAST['password'])}
 
-
 class BucketSettings(object):
 
     PASSWORD = 'password'
