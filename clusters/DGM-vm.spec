@@ -1,18 +1,15 @@
 [clusters]
 DGM-aws =
-    172.23.122.98:8091
-    172.23.122.99:8091
-    172.23.122.100:8091
-    172.23.122.101:8091
+    172.23.100.90:8091
 
 [clients]
 hosts =
-    172.23.122.97
+    172.23.100.91
 credentials = root:couchbase  
 
 [storage]
-data = /data1
-index = /data2
+data = /data
+index = /data
 
 [credentials]
 rest = Administrator:password
