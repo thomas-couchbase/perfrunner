@@ -83,7 +83,7 @@ class RestHelper(object):
         self.post(url=api, data=data)
 
     def set_mem_quota(self, host_port, mem_quota):
-        logger.info('Configuring memory quota: {}'.format(host_port))
+        logger.info('Configuring {} memory quota: {}'.format(host_port, mem_quota))
 
         api = 'http://{}/pools/default'.format(host_port)
         data = {'memoryQuota': mem_quota}

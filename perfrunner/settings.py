@@ -289,7 +289,7 @@ class ClusterSettings(object):
     RUN_CBQ = 0
     SFWI = 0
     TCMALLOC_AGGRESSIVE_DECOMMIT = 0
-    INDEX_MEM_QUOTA = 256
+    INDEX_MEM_QUOTA = 0 
 
     def __init__(self, options):
         self.mem_quota = int(options.get('mem_quota'))
