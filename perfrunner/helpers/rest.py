@@ -326,6 +326,7 @@ class RestHelper(object):
 
         api = 'http://{}/pools/'.format(host_port)
         r = self.get(url=api).json()
+        logger.info('    version {}'.format(r['implementationVersion')
         return r['implementationVersion']\
             .replace('-rel-enterprise', '').replace('-community', '')
 
