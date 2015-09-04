@@ -1,4 +1,4 @@
-import logger
+from logger import logger
 from optparse import OptionParser
 
 from perfrunner.settings import ClusterSpec, TestConfig, Experiment
