@@ -44,6 +44,7 @@ def main():
     test_class = test_config.test_case.test_class
     exec('from {} import {}'.format(test_module, test_class))
 
+    logger.info(' initialize connection cluster {} testcfg {} options {} experiment {}'.format(cluster_spec,test_config,options.verbose,experiment))
     with eval(test_class)(cluster_spec,
                           test_config,
                           options.verbose,
