@@ -155,6 +155,7 @@ def main():
     cluster_spec = ClusterSpec()
     cluster_spec.parse(options.cluster_spec_fname, args)
 
+    logger.info ('Install Couchbase {} with options {}'.format(cluster_spec, options))
     installer = CouchbaseInstaller(cluster_spec, options)
     installer.install()
 

@@ -659,7 +659,7 @@ class RemoteWindowsHelper(RemoteLinuxHelper):
 
     def clean_installation(self):
         with settings(warn_only=True):
-            run('rm -fr {}'.format(self.CB_DIR))
+            run('rm -fr {}/*'.format(self.CB_DIR))
 
     @all_hosts
     def uninstall_couchbase(self, pkg):

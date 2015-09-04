@@ -5,19 +5,15 @@ DGM-aws =
 [clients]
 hosts =
     172.23.100.91
-credentials = couchbase:couchbase  
+credentials = root:couchbase  
 
 [credentials]
 rest = Administrator:password
-ssh = couchbase:couchbase
+ssh = root:couchbase
 
 [storage]
 data = /data
 index = /data
-
-[credentials]
-rest = Administrator:password
-ssh = couchbase:couchbase
 
 [parameters]
 Platform = VM        
