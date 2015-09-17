@@ -19,6 +19,7 @@ class CouchbaseInstaller(object):
     CBFS = 'http://cbfs-ext.hq.couchbase.com/builds/'
     LATEST_BUILDS = 'http://latestbuilds.hq.couchbase.com/'
     SHERLOCK_BUILDS = ''
+    WATSON_BUILDS = ''
 
     def __init__(self, cluster_spec, options):
         self.options = options
@@ -33,6 +34,8 @@ class CouchbaseInstaller(object):
         if options.version:
             release, build = options.version.split('-')
             self.SHERLOCK_BUILDS = 'http://latestbuilds.hq.couchbase.com/couchbase-server/sherlock/{}/'.format(build)
+            self.WATSON_BUILDS = 'http://172.23.120.24/builds/latestbuilds/couchbase-server/watson/{}/'.format(build)
+
             if options.toy:
                 self.SHERLOCK_BUILDS = 'http://latestbuilds.hq.couchbase.com/couchbase-server/toy-{}/{}/'.format(options.toy, build)
 
@@ -60,12 +63,14 @@ class CouchbaseInstaller(object):
                 'couchbase-server-{edition}_centos6_{arch}_{version}-rel.{pkg}',
                 'couchbase-server-{edition}-{version}-centos6.{arch}.{pkg}',
                 'couchbase-server-{edition}_{arch}_{version}-rel.{pkg}',
+                'couchbase-server-{edition}_{version}-{arch}.{pkg}',
             )
         elif self.build.pkg == 'deb':
             patterns = (
                 'couchbase-server-{edition}_ubuntu_1204_{arch}_{version}-rel.{pkg}',
                 'couchbase-server-{edition}_{version}-ubuntu12.04_amd64.{pkg}',
                 'couchbase-server-{edition}_{arch}_{version}-rel.{pkg}',
+                'couchbase-server-{edition}_{version}-{arch}.{pkg}',
             )
         elif self.build.pkg == 'exe':
             patterns = (
@@ -81,7 +86,7 @@ class CouchbaseInstaller(object):
 
     def find_package(self):
         for filename in self.get_expected_filenames():
-            for base in (self.LATEST_BUILDS, self.SHERLOCK_BUILDS, self.CBFS):
+            for base in (self.LATEST_BUILDS, self.SHERLOCK_BUILDS, self.WATSON_BUILDS, self.CBFS):
                 url = '{}{}'.format(base, filename)
                 try:
                     status_code = requests.head(url).status_code
@@ -155,7 +160,6 @@ def main():
     cluster_spec = ClusterSpec()
     cluster_spec.parse(options.cluster_spec_fname, args)
 
-    logger.info ('Install Couchbase {} with options {}'.format(cluster_spec, options))
     installer = CouchbaseInstaller(cluster_spec, options)
     installer.install()
 
