@@ -4,7 +4,7 @@ DGM-aws =
 
 [clients]
 hosts =
-    172.23.100.91
+    172.23.105.215
 credentials = root:couchbase  
 
 [credentials]

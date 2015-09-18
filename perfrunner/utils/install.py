@@ -35,12 +35,10 @@ class CouchbaseInstaller(object):
             release, build = options.version.split('-')
             self.SHERLOCK_BUILDS = 'http://latestbuilds.hq.couchbase.com/couchbase-server/sherlock/{}/'.format(build)
             self.WATSON_BUILDS = 'http://172.23.120.24/builds/latestbuilds/couchbase-server/watson/{}/'.format(build)
-
             if options.toy:
                 self.SHERLOCK_BUILDS = 'http://latestbuilds.hq.couchbase.com/couchbase-server/toy-{}/{}/'.format(options.toy, build)
-
-        self.build = Build(arch, pkg, options.cluster_edition, options.version,
-                           release, build, options.toy, options.url)
+        self.build = Build(arch, pkg, options.version, release, build,
+                           options.toy)
         logger.info('Target build info: {}'.format(self.build))
 
     def get_expected_filenames(self):
@@ -51,12 +49,13 @@ class CouchbaseInstaller(object):
                 'couchbase-server-community_toy-{toy}-{version}-toy_{arch}.{pkg}',
                 'couchbase-server-community_cent58-2.5.2-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent58-3.0.0-toy-{toy}-{arch}_{version}-toy.{pkg}',
-                'couchbase-server-community_cent64-3.0.0-toy-{toy}-{arch}_{version}-toy.{pkg}',
+                'couchbase-server-community_ubuntu12-3.0.0-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent64-3.0.1-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent58-master-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent54-master-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 # For toy builds >= Sherlock
-                'couchbase-server-enterprise-{version}-centos6.{arch}.{pkg}',
+                'couchbase-server-{edition}-{version}-centos6_{arch}.{pkg}',
+                'couchbase-server-{edition}-{version}-ubuntu12.04_{arch}.{pkg}',
             )
         elif self.build.pkg == 'rpm':
             patterns = (
@@ -135,7 +134,7 @@ def main():
     parser.add_option('-c', dest='cluster_spec_fname',
                       help='path to cluster specification file',
                       metavar='cluster.spec')
-    parser.add_option('-e', dest='cluster_edition', default='enterprise',
+    parser.add_option('-3', dest='cluster_edition', default='enterprise',
                       help='the cluster edition (community or enterprise)')
     parser.add_option('-v', dest='version',
                       help='build version', metavar='2.0.0-1976')
@@ -143,19 +142,19 @@ def main():
                       help='optional toy build ID', metavar='couchstore')
     parser.add_option('--url', dest='url', default=None,
                       help='The http URL to a Couchbase RPM that should be'
-                      ' installed. This overrides the URL to be installed.')
+                      ' installed.  This overrides the URL to be installed.')
     parser.add_option('--verbose', dest='verbose', action='store_true',
                       help='enable verbose logging')
 
     options, args = parser.parse_args()
 
-    if not (options.cluster_spec_fname and options.version) and not options.url:
-        parser.error(
-            'Missing mandatory parameter. Either specify both cluster'
-            ' spec and version, or specify just the URL to be installed')
-
     if options.cluster_edition not in ['community', 'enterprise']:
-        parser.error('Cluster edition must be either community or enterprise')
+        # changed to default to enterprise, with no error:
+        options.cluster_edition = 'enterprise'
+
+    if not (options.cluster_spec_fname and options.version) and not options.url:
+        parser.error('Missing mandatory parameter. Either pecify both cluster'
+                     ' spec and version, or specify just the URL to be installed')
 
     cluster_spec = ClusterSpec()
     cluster_spec.parse(options.cluster_spec_fname, args)

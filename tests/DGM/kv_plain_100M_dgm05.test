@@ -29,4 +29,4 @@ deletes = 0
 throughput = 15000
 items = 10000000
 workers = 12
-time = 7200
+time = 3600

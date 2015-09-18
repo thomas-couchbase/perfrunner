@@ -1,3 +1,4 @@
+import pdb
 from unittest import TestCase
 
 from mock import patch
@@ -10,7 +11,6 @@ from perfrunner.workloads.tcmalloc import (KeyValueIterator,
                                            KeyLargeValueIterator,
                                            LargeIterator)
 
-
 class InstallTest(TestCase):
 
     @patch('perfrunner.utils.install.CouchbaseInstaller.__init__')
@@ -18,13 +18,14 @@ class InstallTest(TestCase):
         installer_mock.return_value = None
         installer = CouchbaseInstaller()
         installer.build = Build('x86_64', 'rpm', 'enterprise', '2.0.0-1976',
-                                '2.0.0', '1976', None)
+                                '2.0.0', '1976', None, None)
 
         filenames = tuple(installer.get_expected_filenames())
         expected = (
             'couchbase-server-enterprise_centos6_x86_64_2.0.0-1976-rel.rpm',
             'couchbase-server-enterprise-2.0.0-1976-centos6.x86_64.rpm',
             'couchbase-server-enterprise_x86_64_2.0.0-1976-rel.rpm',
+            'couchbase-server-enterprise_2.0.0-1976-x86_64.rpm',
         )
         self.assertEqual(filenames, expected)
 
@@ -33,13 +34,14 @@ class InstallTest(TestCase):
         installer_mock.return_value = None
         installer = CouchbaseInstaller()
         installer.build = Build('x86_64', 'deb', 'enterprise', '3.0.0-777',
-                                '3.0.0', '777', None)
+                                '3.0.0', '777', None, None)
 
         filenames = tuple(installer.get_expected_filenames())
         expected = (
             'couchbase-server-enterprise_ubuntu_1204_x86_64_3.0.0-777-rel.deb',
             'couchbase-server-enterprise_3.0.0-777-ubuntu12.04_amd64.deb',
             'couchbase-server-enterprise_x86_64_3.0.0-777-rel.deb',
+            'couchbase-server-enterprise_3.0.0-777-x86_64.deb',
         )
         self.assertEqual(filenames, expected)
 
@@ -48,7 +50,7 @@ class InstallTest(TestCase):
         installer_mock.return_value = None
         installer = CouchbaseInstaller()
         installer.build = Build('x86_64', 'exe', 'enterprise', '3.0.0-1028',
-                                '3.0.0', '1028', None)
+                                '3.0.0', '1028', None, None)
 
         filenames = tuple(installer.get_expected_filenames())
         expected = (
@@ -89,7 +91,7 @@ class InstallTest(TestCase):
         installer_mock.return_value = None
         installer = CouchbaseInstaller()
         installer.build = Build('x86_64', 'rpm', 'enterprise', '2.0.0-1976',
-                                '2.0.0', '1976', 'mytoy')
+                                '2.0.0', '1976', 'mytoy', None)
 
         filenames = tuple(installer.get_expected_filenames())
         expected = (
@@ -101,6 +103,7 @@ class InstallTest(TestCase):
             'couchbase-server-community_cent64-3.0.1-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent58-master-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent54-master-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
+            'couchbase-server-enterprise-2.0.0-1976-centos6_x86_64.rpm', 
         )
         self.assertEqual(filenames, expected)
 

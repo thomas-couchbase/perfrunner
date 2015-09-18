@@ -36,45 +36,5 @@ workers = 12
 items = 100000
 working_set = 98
 working_set_access = 98
-time = 3600
-async = 1
-[test_case]
-test = perfrunner.tests.kv.ReadLatencyTest
-title = KV latency quick check
-summary = KV latency quick check
-larger_is_better = false
-
-[cluster]
-mem_quota = 12000
-initial_nodes = 1
-num_buckets = 1
-
-[bucket]
-eviction_policy = fullEviction
-replica_number = 1
-
-[compaction]
-db_percentage = 60
-
-[load]
-items = 100000
-size = 1024
-workers = 10
-
-[hot_load]
-items = 100000
-workers = 10
-working_set = 98
-
-[access]
-creates = 0
-reads = 50
-updates = 50
-deletes = 0
-throughput = 150
-workers = 12
-items = 100000
-working_set = 98
-working_set_access = 98
-time = 3600
+time = 1800
 async = 1
