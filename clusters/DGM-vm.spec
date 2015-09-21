@@ -1,10 +1,11 @@
 [clusters]
 DGM-aws =
     172.23.100.90:8091
+    172.23.100.92:8091
 
 [clients]
 hosts =
-    172.23.105.215
+    172.23.100.91
 credentials = root:couchbase  
 
 [credentials]
