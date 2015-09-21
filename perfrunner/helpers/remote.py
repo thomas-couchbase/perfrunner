@@ -391,13 +391,8 @@ class RemoteLinuxHelper(object):
     @seriesly_host
     def restart_seriesly(self):
         logger.info('Cleaning up and restarting seriesly')
-
-        put('scripts/seriesly_roll_dbs.sh', '/root/seriesly_roll_dbs.sh')
-        run('chmod 777 /root/seriesly_roll_dbs.sh')
-        run('/root/seriesly_roll_dbs.sh', pty=False)
-
         run('killall -9 sample seriesly', quiet=True)
-        run('rm -f *.txt *.log *.gz *.json *.out',
+        run('rm -f *.txt *.log *.gz *.json *.out /root/seriesly-data/*',
             warn_only=True)
         run('nohup seriesly -flushDelay=1s -root=/root/seriesly-data '
             '&> seriesly.log &', pty=False)
@@ -659,7 +654,7 @@ class RemoteWindowsHelper(RemoteLinuxHelper):
 
     def clean_installation(self):
         with settings(warn_only=True):
-            run('rm -fr {}/*'.format(self.CB_DIR))
+            run('rm -fr {}'.format(self.CB_DIR))
 
     @all_hosts
     def uninstall_couchbase(self, pkg):

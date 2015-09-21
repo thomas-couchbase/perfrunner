@@ -37,8 +37,8 @@ class CouchbaseInstaller(object):
             self.WATSON_BUILDS = 'http://172.23.120.24/builds/latestbuilds/couchbase-server/watson/{}/'.format(build)
             if options.toy:
                 self.SHERLOCK_BUILDS = 'http://latestbuilds.hq.couchbase.com/couchbase-server/toy-{}/{}/'.format(options.toy, build)
-        self.build = Build(arch, pkg, options.version, release, build,
-                           options.toy)
+        self.build = Build(arch, pkg, options.cluster_edition, options.version,
+                           release, build, options.toy, options.url)
         logger.info('Target build info: {}'.format(self.build))
 
     def get_expected_filenames(self):
@@ -50,6 +50,7 @@ class CouchbaseInstaller(object):
                 'couchbase-server-community_cent58-2.5.2-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent58-3.0.0-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_ubuntu12-3.0.0-toy-{toy}-{arch}_{version}-toy.{pkg}',
+                'couchbase-server-community_cent64-3.0.0-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent64-3.0.1-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent58-master-toy-{toy}-{arch}_{version}-toy.{pkg}',
                 'couchbase-server-community_cent54-master-toy-{toy}-{arch}_{version}-toy.{pkg}',
@@ -134,7 +135,7 @@ def main():
     parser.add_option('-c', dest='cluster_spec_fname',
                       help='path to cluster specification file',
                       metavar='cluster.spec')
-    parser.add_option('-3', dest='cluster_edition', default='enterprise',
+    parser.add_option('-e', dest='cluster_edition', default='enterprise',
                       help='the cluster edition (community or enterprise)')
     parser.add_option('-v', dest='version',
                       help='build version', metavar='2.0.0-1976')
