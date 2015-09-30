@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.index.InitialAndIncrementalIndexTest
 title = 1 bucket x 100M x 1KB, DGM 05, 4 x 1 views, no mutations
-summary = Indexing test, 4 nodes, 1 bucket x 100M x 1KB, DGM 05, 4 x 1 views
+summary = Indexing test, 1 nodes, 1 bucket x 100M x 1KB, DGM 05, 4 x 1 views
 larger_is_better = false
 
 [cluster]
