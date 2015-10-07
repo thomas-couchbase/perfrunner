@@ -1,3 +1,4 @@
+import pdb
 import sys
 from time import sleep
 
@@ -115,6 +116,7 @@ class RemoteWorkerManager(object):
                      run_workload=task_run_workload):
         self.workers = []
         for target in target_iterator:
+            pdb.set_trace()
             log_phase('workload generator', settings)
 
             qname = '{}-{}'.format(target.node.split(':')[0], target.bucket)

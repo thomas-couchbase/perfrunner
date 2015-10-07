@@ -1,12 +1,12 @@
 [test_case]
 test = perfrunner.tests.rebalance.RebalanceWithQueriesTest
-title = Rebalance-in (min), 3->4, 1 bkt x 100M x 1KB, DGM05, 1 x 1 views, 15K ops/sec, 400 queries/sec, l
-summary = Mixed KV + queries rebalance test, 3->4 nodes, 1 bkt x 100M x 1KB, 1 x 1 views, 15K ops/sec, 400 qps, DGM05
+title = Rebalance-in (min), 1->2, 1 bkt x 100M x 1KB, DGM05, 1 x 1 views, 8K ops, 400Qops 
+summary = Mixed KV + queries rebalance test, 1->2 nodes, 1 bkt x 100M x 1KB, 1 x 1 views, 8K ops, 400Qops DGM05
 larger_is_better = false
 
 [cluster]
 mem_quota = 12000 
-initial_nodes = 3
+initial_nodes = 1
 num_buckets = 1
 
 [bucket]
@@ -34,7 +34,7 @@ creates = 0
 reads = 50
 updates = 50
 deletes = 0
-throughput = 15000
+throughput = 8000
 query_throughput = 400
 items = 100000000
 workers = 24
@@ -43,6 +43,6 @@ working_set = 98
 working_set_access = 98
 
 [rebalance]
-nodes_after = 4
+nodes_after = 2
 start_after = 1200
 stop_after = 1200
