@@ -1,6 +1,7 @@
 import logger
 from perfrunner.helpers.cbmonitor import with_stats
 from perfrunner.tests import PerfTest
+from perfrunner.tests import TargetIterator
 from exceptions import NotImplementedError
 
 
@@ -30,22 +31,45 @@ class N1QLTest(PerfTest):
                 self._build_index(query_node, bucket)
 
     def _build_index(self, query_node, bucket):
+
+        names = list()
         for index in self.test_config.n1ql_settings.indexes:
-            index_name = index.split('::')[0]
-            index_query = index.split('::')[1]
-            query = index_query.format(name=index_name, bucket=bucket)
-            self.rest.n1ql_query(query_node, query)
-            self.rest.wait_for_indexes_to_become_online(host=query_node,
-                                                        index_name=index_name)
+
+            if '{partition_id}' in index:
+                for id in range(self.test_config.load_settings.doc_partitions):
+                    index_name = index.split('::')[0].format(partition_id=id)
+                    index_query = index.split('::')[1]
+                    query = index_query.format(name=index_name, bucket=bucket,
+                                               partition_id=id)
+                    self.rest.n1ql_query(query_node, query)
+                    names.append(index_name)
+            else:
+                index_name = index.split('::')[0]
+                index_query = index.split('::')[1]
+                query = index_query.format(name=index_name, bucket=bucket)
+                self.rest.n1ql_query(query_node, query)
+                names.append(index_name)
+
+            for name in names:
+                self.rest.wait_for_indexes_to_become_online(host=query_node,
+                                                            index_name=name)
 
     def _create_prepared_statements(self):
         self.n1ql_queries = []
         prepared_stmnts = list()
         for query in self.test_config.access_settings.n1ql_queries:
             if 'prepared' in query and query['prepared']:
-                stmt = 'PREPARE {} AS {}'.format(query['prepared'],
-                                                 query['statement'])
-                prepared_stmnts.append(stmt)
+
+                if '{partition_id}' in query['prepared']:
+                    for id in range(self.test_config.load_settings.doc_partitions):
+                        name = query['prepared'].format(partition_id=id)
+                        part_stmt = query['statement'].format(partition_id=id)
+                        stmt = 'PREPARE {} AS {}'.format(name, part_stmt)
+                        prepared_stmnts.append(stmt)
+                else:
+                    stmt = 'PREPARE {} AS {}'.format(query['prepared'],
+                                                     query['statement'])
+                    prepared_stmnts.append(stmt)
                 del query['statement']
                 query['prepared'] = '"' + query['prepared'] + '"'
             self.n1ql_queries.append(query)
@@ -65,7 +89,7 @@ class N1QLTest(PerfTest):
                     self.rest.n1ql_query(query_node, stmt)
 
     @with_stats
-    def access(self):
+    def access(self, access_settings=None):
         super(N1QLTest, self).timer()
 
     def run(self):
@@ -78,7 +102,13 @@ class N1QLLatencyTest(N1QLTest):
         super(N1QLLatencyTest, self).__init__(*args, **kwargs)
 
     def run(self):
-        self.load()
+        load_settings = self.test_config.load_settings
+        load_settings.items = load_settings.items / 2
+
+        iterator = TargetIterator(self.cluster_spec, self.test_config, 'n1ql')
+        self.load(load_settings, iterator)
+
+        self.load(load_settings)
         self.wait_for_persistence()
         self.compact_bucket()
 
@@ -86,13 +116,13 @@ class N1QLLatencyTest(N1QLTest):
 
         self._create_prepared_statements()
 
-        access_settings = self.test_config.access_settings
-        access_settings.n1ql_queries = getattr(self, 'n1ql_queries',
-                                               access_settings.n1ql_queries)
-        self.workload = access_settings
+        self.workload = self.test_config.access_settings
+        self.workload.items = self.workload.items / 2
+        self.workload.n1ql_queries = getattr(self, 'n1ql_queries',
+                                             self.workload.n1ql_queries)
 
-        self.access_bg()
-        self.access()
+        self.access_bg(self.workload)
+        self.access(self.workload)
 
         if self.test_config.stats_settings.enabled:
             self.reporter.post_to_sf(
@@ -106,7 +136,13 @@ class N1QLThroughputTest(N1QLTest):
         super(N1QLThroughputTest, self).__init__(*args, **kwargs)
 
     def run(self):
-        self.load()
+        load_settings = self.test_config.load_settings
+        load_settings.items = load_settings.items / 2
+
+        iterator = TargetIterator(self.cluster_spec, self.test_config, 'n1ql')
+        self.load(load_settings, iterator)
+
+        self.load(load_settings)
         self.wait_for_persistence()
         self.compact_bucket()
 
@@ -114,13 +150,13 @@ class N1QLThroughputTest(N1QLTest):
 
         self._create_prepared_statements()
 
-        access_settings = self.test_config.access_settings
-        access_settings.n1ql_queries = getattr(self, 'n1ql_queries',
-                                               access_settings.n1ql_queries)
-        self.workload = access_settings
+        self.workload = self.test_config.access_settings
+        self.workload.items = self.workload.items / 2
+        self.workload.n1ql_queries = getattr(self, 'n1ql_queries',
+                                             self.workload.n1ql_queries)
 
-        self.access_bg()
-        self.access()
+        self.access_bg(self.workload)
+        self.access(self.workload)
 
         if self.test_config.stats_settings.enabled:
             self.reporter.post_to_sf(

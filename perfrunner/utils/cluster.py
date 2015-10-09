@@ -49,10 +49,7 @@ class ClusterManager(object):
 
     def set_index_mem_quota(self):
         for server in self.servers():
-# this allows condition of using system default, if not explicitly set
-# default of 256 causes failure on small index node configurations
-            if self.index_mem_quota > 0:
-                self.rest.set_index_mem_quota(server, self.index_mem_quota)
+            self.rest.set_index_mem_quota(server, self.index_mem_quota)
 
     def set_query_settings(self):
         settings = self.test_config.n1ql_settings.settings
@@ -284,6 +281,7 @@ def main():
     cm.change_watermarks()
     if cm.remote:
         cm.set_index_settings()
+        time.sleep(60)
         cm.set_query_settings()
         cm.tweak_memory()
         cm.remote.disable_wan()

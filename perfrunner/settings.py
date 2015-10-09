@@ -191,6 +191,7 @@ class TestConfig(Config):
 
         load = self.load_settings
         hot_load.doc_gen = load.doc_gen
+        hot_load.doc_partitions = load.doc_partitions
         hot_load.size = load.size
         return hot_load
 
@@ -227,6 +228,7 @@ class TestConfig(Config):
 
         load = self.load_settings
         access.doc_gen = load.doc_gen
+        access.doc_partitions = load.doc_partitions
         access.size = load.size
         return access
 
@@ -289,7 +291,9 @@ class ClusterSettings(object):
     RUN_CBQ = 0
     SFWI = 0
     TCMALLOC_AGGRESSIVE_DECOMMIT = 0
-    INDEX_MEM_QUOTA = 0 
+    # this needs to change from 256 to default 0 (unspecified, for DGM tests run on a single node
+    # can also work.  
+    INDEX_MEM_QUOTA = 256
 
     def __init__(self, options):
         self.mem_quota = int(options.get('mem_quota'))
@@ -345,6 +349,7 @@ class StatsSettings(object):
                                              self.SHOWFAST['host']),
                          'password': options.get('showfast_password',
                                                  self.SHOWFAST['password'])}
+
 
 class BucketSettings(object):
 
@@ -453,6 +458,8 @@ class PhaseSettings(object):
     N1QL_THROUGHPUT = float('inf')
 
     DOC_GEN = 'old'
+    DOC_PARTITIONS = 1
+
     ITEMS = 0
     SIZE = 2048
     EXPIRATION = 0
@@ -487,6 +494,8 @@ class PhaseSettings(object):
                                                  self.N1QL_THROUGHPUT))
 
         self.doc_gen = options.get('doc_gen', self.DOC_GEN)
+        self.doc_partitions = int(options.get('doc_partitions',
+                                              self.DOC_PARTITIONS))
         self.size = int(options.get('size', self.SIZE))
         self.items = int(options.get('items', self.ITEMS))
         self.expiration = int(options.get('expiration', self.EXPIRATION))

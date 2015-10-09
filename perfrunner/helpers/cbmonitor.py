@@ -304,7 +304,6 @@ class CbAgent(object):
         default_queries = test.test_config.access_settings.n1ql_queries
         self.settings.new_n1ql_queries = getattr(test, 'n1ql_queries',
                                                  default_queries)
-#        prefix = test.target_iterator.prefix
         for cluster in clusters:
             settings = copy(self.settings)
             settings.interval = self.lat_interval

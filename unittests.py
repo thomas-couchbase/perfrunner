@@ -94,16 +94,20 @@ class InstallTest(TestCase):
                                 '2.0.0', '1976', 'mytoy', None)
 
         filenames = tuple(installer.get_expected_filenames())
+        print 'filenames {}'.format(filenames)
+
         expected = (
             'couchbase-server-community_toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_toy-mytoy-2.0.0-1976-toy_x86_64.rpm',
             'couchbase-server-community_cent58-2.5.2-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent58-3.0.0-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
+            'couchbase-server-community_ubuntu12-3.0.0-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent64-3.0.0-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent64-3.0.1-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent58-master-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-community_cent54-master-toy-mytoy-x86_64_2.0.0-1976-toy.rpm',
             'couchbase-server-enterprise-2.0.0-1976-centos6_x86_64.rpm', 
+            'couchbase-server-enterprise-2.0.0-1976-ubuntu12.04_x86_64.rpm', 
         )
         self.assertEqual(filenames, expected)
 

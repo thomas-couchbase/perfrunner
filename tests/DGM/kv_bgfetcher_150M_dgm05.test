@@ -19,11 +19,11 @@ replica_number = 1
 [load]
 items = 150000000
 size = 1024
-workers = 10
+workers = 20
 
 [hot_load]
 items = 150000000
-workers = 10
+workers = 20
 working_set = 98
 
 [access]
@@ -32,7 +32,7 @@ reads = 50
 updates = 50
 deletes = 0
 throughput = 15000
-workers = 10
+workers = 20
 items = 150000000
 working_set = 98
 working_set_access = 98

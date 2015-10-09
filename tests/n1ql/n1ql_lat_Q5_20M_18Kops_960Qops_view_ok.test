@@ -1,7 +1,7 @@
 [test_case]
 test = perfrunner.tests.n1ql.N1QLLatencyTest
-title = N1QL Q7 1Bux20Mx1K, Order By Query, 38.4KGops, 9.6KSops, 960Qops, GSI, stale=ok
-summary = Order By Query, 38.4KGops, 9.6KSops, 960Qops
+title = N1QL Q5 1Bux20Mx1K, Aggregation Query, 14.4KGops, 3.6KSops, 960Qops, View, stale=ok
+summary = Aggregation Query, 14.4KGops, 3.6KSops, 960Qops
 larger_is_better = false
 
 [cluster]
@@ -19,27 +19,28 @@ eviction_policy = valueOnly
 items = 20000000
 size = 1024
 workers = 20
-doc_gen = new
+doc_gen = reverse_lookup
+doc_partitions = 1
 
 [n1ql]
 indexes =
-    by_capped_small::CREATE INDEX {name} ON `{bucket}` (capped_small) using gsi;
+    by_capped_small::CREATE INDEX {name} ON `{bucket}` (capped_small) using view;
 
 [access]
 creates = 0
 reads = 80
 updates = 20
 deletes = 0
-throughput = 48000
+throughput = 18000
 items = 20000000
 workers = 24
 time = 1200
-n1ql_queries = order-by-query
+n1ql_queries = aggregation-query
 n1ql_throughput = 960
 n1ql_workers = 96
 
-[n1ql-order-by-query]
-prepared = order_by_query
-statement = SELECT name.f.f AS _name, street.f.f AS _street FROM `bucket-1` WHERE capped_small=$1 ORDER BY name.f.f.f;
+[n1ql-aggregation-query]
+prepared = aggregation_query
+statement = SELECT sum(coins.f) FROM `bucket-1` WHERE capped_small=$1;
 scan_consistency = not_bounded
 args = ["{capped_small}"]

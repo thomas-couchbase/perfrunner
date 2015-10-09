@@ -30,7 +30,9 @@ def retry(method, *args, **kwargs):
             logger.warn(r.text)
             logger.warn('Retrying {}'.format(r.url))
             time.sleep(RETRY_DELAY)
-            logger.interrupt('Request {} failed after {} attempts'.format(r.url, MAX_RETRY))
+    logger.interrupt('Request {} failed after {} attempts'.format(
+        r.url, MAX_RETRY
+    ))
 
 
 class RestHelper(object):
@@ -57,7 +59,6 @@ class RestHelper(object):
 
     def set_data_path(self, host_port, data_path, index_path):
         logger.info('Configuring data paths: {}'.format(host_port))
-        logger.info('     data path {} index path {}'.format(data_path,index_path))
 
         api = 'http://{}/nodes/self/controller/settings'.format(host_port)
         data = {
@@ -83,7 +84,7 @@ class RestHelper(object):
         self.post(url=api, data=data)
 
     def set_mem_quota(self, host_port, mem_quota):
-        logger.info('Configuring {} memory quota: {}'.format(host_port, mem_quota))
+        logger.info('Configuring memory quota: {}'.format(host_port))
 
         api = 'http://{}/pools/default'.format(host_port)
         data = {'memoryQuota': mem_quota}
@@ -326,7 +327,6 @@ class RestHelper(object):
 
         api = 'http://{}/pools/'.format(host_port)
         r = self.get(url=api).json()
-        logger.info('    version {}'.format(r['implementationVersion']))
         return r['implementationVersion']\
             .replace('-rel-enterprise', '').replace('-community', '')
 
